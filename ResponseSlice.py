@@ -11,7 +11,7 @@ def extract(csvRows, columnsStart, columnsEnd, rowStart, rowEnd):
     return result
     
 def loadCsv(path):
-    with open(path, 'r') as csvFile:
+    with open(path, 'rb') as csvFile:
         csv_text = csvFile.read()
     reader = csv.reader(csv_text.split('\n'))
     result = []
@@ -25,15 +25,22 @@ def loadCsv(path):
     
 def writeCsv(csvRows, path):
     columns_count = 0
-    with open(path, 'w') as outFile:
+    with open(path, 'wb') as outFile: # binary to avoid extra newlines on Windows.
+        writer = csv.writer(outFile)
         for row in csvRows:
-            outFile.write(','.join(row))
-            outFile.write('\n')
+            writer.writerow(row)
             columns_count = max(columns_count, len(row))
     print 'wrote', len(csvRows), 'rows x', columns_count, 'columns to', path
         
+def demo_sliceOutQuestion11():
+    # Where would YOU tolerate cuts?
+    # columns AF - AP (indexes 31 - 41)
+    csvRows = loadCsv('Responses.csv')
+    extractedQuestion11 = extract(csvRows, 31, 41, 4, 40517)
+    writeCsv(extractedQuestion11, 'q11.csv')
 
 def demo_sliceOutQuestion9():
+    # What should AB do to increase revenue?
     csvRows = loadCsv("Responses.csv")
     # columns P to X (index 15 to 23)
     # row start = 5th row (index 4)
@@ -41,4 +48,4 @@ def demo_sliceOutQuestion9():
     extractedQuestionNine = extract(csvRows, 15, 23, 4, 40517)
     writeCsv(extractedQuestionNine, 'q9.csv')
 
-if __name__ == '__main__': demo_sliceOutQuestion9()
+if __name__ == '__main__': demo_sliceOutQuestion11()
