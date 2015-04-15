@@ -1,5 +1,5 @@
 # AB budget survey
-In 2015, the Alberta government issued a survey for how it should adapt the budget.
+In 2015, the Alberta government issued a survey for how it should adapt the budget to deal with the low price of oil.
 
 Later they released the raw (but trimmed of comments) [results from the survey](http://data.alberta.ca/data/budget-2015-survey) on their open data portal.
 
